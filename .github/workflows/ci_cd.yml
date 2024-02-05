@@ -5,6 +5,10 @@ on:
         branches: 
             - master
 
+    pull_request:
+        branches: 
+          - master
+
 
 jobs: 
     ci_job: 
@@ -22,6 +26,9 @@ jobs:
 
             - name: Run CI test
               run: make ci
+
+            - name: Stop container
+              run: make down
 
     
     deploy_terraform: 
@@ -41,7 +48,7 @@ jobs:
               run: make infra-apply
 
 
-    deploy_docker_lamnda: 
+    deploy_docker_lambda: 
         runs-on: ubuntu-latest
         steps:
           - name: Configure AWS credentials
@@ -56,6 +63,7 @@ jobs:
             uses: aws-actions/amazon-ecr-login@v2
 
           - name: Build, tag, and push docker image to Amazon ECR
+            working-directory: ./extract_api_data
             env:
               REGISTRY: ${{ steps.login-ecr.outputs.registry }}
               REPOSITORY: ecr-repo-lambda
