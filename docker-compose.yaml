@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  lambda_job: 
+    build: 
+      context: .
+
+    container_name: lambda_job
+  
+  terraform: 
+    image: hashicorp/terraform:latest
+    volumes: 
+      - ./:/infra
+    working_dir: /infra
+    environment: 
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+  
