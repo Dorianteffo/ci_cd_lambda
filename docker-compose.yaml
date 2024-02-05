@@ -3,7 +3,7 @@ version: "3.7"
 services:
   lambda_job: 
     build: 
-      context: ./extract_api_data
+      context: extract_api_data/
 
     container_name: lambda_job
   
