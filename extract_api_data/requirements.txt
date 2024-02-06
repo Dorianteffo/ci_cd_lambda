@@ -1,0 +1,6 @@
+requests
+boto3
+isort 
+flake8
+mypy
+black
