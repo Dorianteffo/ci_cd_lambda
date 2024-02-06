@@ -2,7 +2,7 @@ up:
 	docker compose up --build -d
 
 format: 
-	docker exec lambda_job python -m black -S --line-length 79 .
+	docker exec lambda_job python -m black -S --line-length 85 .
 
 isort:
 	docker exec lambda_job isort .
