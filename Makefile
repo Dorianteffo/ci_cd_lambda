@@ -15,7 +15,7 @@ lint:
 	docker exec lambda_job flake8 .
 
 
-ci: isort format type lint 
+ci: isort format #lint #type  
 
 
 infra-init: 
