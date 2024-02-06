@@ -63,7 +63,9 @@ jobs:
             uses: aws-actions/amazon-ecr-login@v2
 
           - name: List repository contents
-            run: ls -la
+            run: |
+                 pwd
+                 ls -laR
 
           - name: Build, tag, and push docker image to Amazon ECR
             env:
@@ -71,7 +73,6 @@ jobs:
               REPOSITORY: ecr-repo-lambda
               IMAGE_TAG: ${{ github.sha }}
             run: |
-                cd extract_api_data
                 docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
                 docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
         
