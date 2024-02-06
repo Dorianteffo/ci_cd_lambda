@@ -50,6 +50,8 @@ jobs:
         runs-on: ubuntu-latest
         needs: [ci_job, deploy_terraform]
         steps:
+          - name: checkout repo 
+            uses: actions/checkout@v2
 
           - name: Configure AWS credentials
             uses: aws-actions/configure-aws-credentials@v4 
@@ -68,6 +70,7 @@ jobs:
               REPOSITORY: ecr-repo-lambda
               IMAGE_TAG: ${{ github.sha }}
             run: |
+                cd extract_api_data
                 docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
                 docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
         
