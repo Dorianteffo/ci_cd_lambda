@@ -45,14 +45,12 @@ jobs:
             - name: apply terraform 
               run: make infra-apply
 
-            - name: destroy terraform 
-              run: make infra-down
-
 
     deploy_docker_lambda: 
         runs-on: ubuntu-latest
         needs: [ci_job, deploy_terraform]
         steps:
+
           - name: Configure AWS credentials
             uses: aws-actions/configure-aws-credentials@v4 
             with:
@@ -64,13 +62,15 @@ jobs:
             id: login-ecr
             uses: aws-actions/amazon-ecr-login@v2
 
+
           - name: Build, tag, and push docker image to Amazon ECR
             env:
               REGISTRY: ${{ steps.login-ecr.outputs.registry }}
               REPOSITORY: ecr-repo-lambda
               IMAGE_TAG: ${{ github.sha }}
             run: |
-                docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG ./extract_api_data
+                cd ci_cd_lambda/extract_api_data
+                docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
                 docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
         
 
