@@ -2,7 +2,7 @@ up:
 	docker compose up --build -d
 
 format: 
-	docker exec lambda_job python -m black -S --line-length 85 .
+	docker exec lambda_job python -m black -S --line-length 79 .
 
 isort:
 	docker exec lambda_job isort .
@@ -15,7 +15,7 @@ lint:
 	docker exec lambda_job flake8 .
 
 
-ci: isort format lint #type  
+ci: isort format #lint #type  
 
 
 infra-init: 

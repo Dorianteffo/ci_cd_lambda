@@ -4,6 +4,8 @@ services:
   lambda_job: 
     build: 
       context: ./extract_api_data
+    volumes: 
+      - ./:/${LAMBDA_TASK_ROOT}
 
     container_name: lambda_job
   
