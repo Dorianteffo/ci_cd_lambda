@@ -63,13 +63,12 @@ jobs:
             uses: aws-actions/amazon-ecr-login@v2
 
           - name: Build, tag, and push docker image to Amazon ECR
-            working-directory: /home/runner/work/ci_cd_lambda
             env:
               REGISTRY: ${{ steps.login-ecr.outputs.registry }}
               REPOSITORY: ecr-repo-lambda
               IMAGE_TAG: ${{ github.sha }}
             run: |
-                cd extract_api_data
+                cd /home/runner/work/ci_cd_lambda/extract_api_data
                 docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
                 docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
         
