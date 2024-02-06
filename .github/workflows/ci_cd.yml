@@ -68,7 +68,6 @@ jobs:
               REPOSITORY: ecr-repo-lambda
               IMAGE_TAG: ${{ github.sha }}
             run: |
-                cd /home/runner/work/ci_cd_lambda/extract_api_data
                 docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
                 docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
         
