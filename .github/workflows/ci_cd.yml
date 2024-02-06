@@ -69,7 +69,7 @@ jobs:
                 cd extract_api_data
                 docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
                 docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
-                aws_lambda update-function-code \
+                aws lambda update-function-code \
                     --function-name test-lambda \
                     --image-uri $REGISTRY/$REPOSITORY:$IMAGE_TAG
         
