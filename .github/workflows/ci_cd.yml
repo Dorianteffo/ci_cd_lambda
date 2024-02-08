@@ -8,7 +8,6 @@ on:
 env:
   AWS_ACCESS_KEY_ID: ${{   secrets.AWS_ACCESS_KEY_ID   }}
   AWS_SECRET_ACCESS_KEY: ${{   secrets.AWS_SECRET_ACCESS_KEY  }}
-  AUTHORIZATION: ${{  secrets.AUTHORIZATION   }}
 
 
 jobs: 
@@ -67,7 +66,7 @@ jobs:
               IMAGE_TAG: ${{ github.sha }}
             run: |
                 cd extract_api_data
-                docker buildx build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG . --build-arg AUTHORIZATION=${AUTHORIZATION}
+                docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
                 docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
                 aws lambda update-function-code \
                     --function-name test-lambda \
