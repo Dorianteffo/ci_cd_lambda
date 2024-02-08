@@ -17,7 +17,7 @@ def extract_api_data(url: str, headers: dict) -> dict:
     try:
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
-            data = json.loads(response.text)['results']
+            data = response.json()['results']
             logger.info('API data extracted')
             return data
     except Exception as e:
@@ -41,6 +41,7 @@ def lambda_handler(event, context):
         'https://api.themoviedb.org/3/discover/movie?include_adult='
         + 'false&include_video=false&language=en-US&page=1&sort_by=popularity.desc'
     )
+
     headers = {"accept": "application/json", "Authorization": authorization}
 
     today_date = datetime.date.today().strftime("%Y-%m-%d")
@@ -49,5 +50,4 @@ def lambda_handler(event, context):
     key = f"api_data/{today_date}/movies.json"
 
     data = extract_api_data(url, headers)
-    json_data = json.dumps(data)
     upload_to_s3(bucket_name, key, data)
