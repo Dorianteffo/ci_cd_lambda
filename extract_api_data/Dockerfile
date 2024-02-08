@@ -2,7 +2,7 @@ FROM public.ecr.aws/lambda/python:3.12
 
 ARG AUTHORIZATION
 
-ENV Authorization=AUTHORIZATION
+ENV Authorization=${AUTHORIZATION}
 
 WORKDIR ${LAMBDA_TASK_ROOT}
 

@@ -67,7 +67,7 @@ jobs:
               IMAGE_TAG: ${{ github.sha }}
             run: |
                 cd extract_api_data
-                docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG . --build-arg AUTHORIZATION=${AUTHORIZATION}
+                docker buildx build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG . --build-arg AUTHORIZATION=${AUTHORIZATION}
                 docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
                 aws lambda update-function-code \
                     --function-name test-lambda \
