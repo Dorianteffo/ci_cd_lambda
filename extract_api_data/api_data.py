@@ -49,5 +49,4 @@ def lambda_handler(event, context):
     key = f"api_data/{today_date}/movies.json"
 
     data = extract_api_data(url, headers)
-    json_data = json.dumps(data)
     upload_to_s3(bucket_name, key, data)
