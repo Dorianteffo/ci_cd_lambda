@@ -23,20 +23,6 @@ jobs:
             - name: Stop container
               run: make down
 
-    
-    # deploy_terraform: 
-    #     runs-on: ubuntu-latest
-    #     needs: [ci_job]
-    #     steps: 
-    #         - name: checkout repo 
-    #           uses: actions/checkout@v2
-
-    #         - name: init terraform 
-    #           run: make infra-init
-
-    #         - name: apply terraform 
-    #           run: make infra-apply
-
 
 
 
